@@ -1,11 +1,14 @@
 const http = require("http");
+const chokidar = require("chokidar");
 const express = require("express");
 const { Server: SocketServer } = require("socket.io");
 const pty = require("node-pty");
 const cors = require("cors");
-
+const fs = require("fs/promises");
+const path = require("path");
 const app = express();
 const server = http.createServer(app);
+
 const io = new SocketServer(server, {
   cors: {
     origin: "*",
@@ -41,6 +44,49 @@ app.post("/api/terminal", (req, res) => {
   res.sendStatus(200);
 });
 
+app.get("/files", async (req, res) => {
+  try {
+    const tree = await getFileListTree("user");
+    return res.json(tree);
+  } catch (error) {
+    console.error("Error fetching file tree:", error);
+    res.status(500).send("Error fetching file tree");
+  }
+});
+
 server.listen(9000, () => {
   console.log("Server started on port 9000");
+});
+
+async function getFileListTree(dir) {
+  const tree = {};
+
+  async function treelist(curdir, currtree) {
+    const files = await fs.readdir(curdir);
+    await Promise.all(
+      files.map(async (file) => {
+        const filepath = path.join(curdir, file);
+        const stat = await fs.stat(filepath);
+        if (stat.isDirectory()) {
+          currtree[file] = {};
+          await treelist(filepath, currtree[file]);
+        } else {
+          currtree[file] = null;
+        }
+      })
+    );
+  }
+
+  await treelist(dir, tree);
+  return tree;
+}
+
+const watcher = chokidar.watch("user", {
+  ignored: /(^|[\/\\])\../,
+  persistent: true,
+});
+
+watcher.on("all", (event, path) => {
+  console.log(`File ${event}: ${path}`);
+  io.emit("file-change", { event, path });
 });

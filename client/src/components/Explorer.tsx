@@ -1,11 +1,87 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
-import ChevronRight from "../icons/ChevronRight";
+import { useState, useEffect } from "react";
+import { ChevronRight, Folder, FileText } from "lucide-react";
+import axios from "axios";
 
+import socket from "../../socket";
 const Explorer = () => {
   const [portfolioOpen, setPortfolioOpen] = useState(true);
+  const [fileTree, setFileTree] = useState({});
+  const [openDirectories, setOpenDirectories] = useState(new Map());
+
+  useEffect(() => {
+    socket.on("file-change", fetchFileTree);
+
+    return () => {
+      socket.off("file-change", fetchFileTree);
+    };
+  }, []);
+
+  useEffect(() => {
+    fetchFileTree();
+  }, []);
+
+  const fetchFileTree = async () => {
+    try {
+      const response = await axios.get("http://localhost:9000/files");
+      setFileTree(response.data);
+    } catch (error) {
+      console.error("Error fetching file tree:", error);
+    }
+  };
+
+  const toggleDirectory = (path) => {
+    setOpenDirectories((prev) => {
+      const newMap = new Map(prev);
+      const currentState = newMap.get(path) || false;
+      newMap.set(path, !currentState);
+      return newMap;
+    });
+  };
+
+  const renderTree = (node, path = "") => {
+    return (
+      <div key={path}>
+        {Object.entries(node).map(([key, value]) => {
+          const isDirectory =
+            value && typeof value === "object" && !Array.isArray(value);
+          const isOpen = openDirectories.get(path + key) || false;
+
+          return (
+            <div
+              key={path + key}
+              style={{ marginLeft: isDirectory ? "20px" : "0" }}
+            >
+              <div
+                className="flex items-center cursor-pointer"
+                onClick={() => isDirectory && toggleDirectory(path + key)}
+              >
+                {isDirectory ? (
+                  <Folder
+                    className={`mr-2 w-4  transition-transform duration-200 ${
+                      isOpen ? "rotate-90" : ""
+                    }`}
+                  />
+                ) : (
+                  <FileText className="mr-2 w-3" />
+                )}
+                {key}
+                {(isDirectory as any) && (
+                  <ChevronRight
+                    className={`transition-transform duration-200 w-3 ${
+                      isOpen ? "rotate-90" : ""
+                    }`}
+                    style={{ marginLeft: "auto" }}
+                  />
+                )}
+              </div>
+              {isDirectory && isOpen && renderTree(value, path + key + "/")}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <div className="bg-[var(--explorer-bg)] w-[18vw] text-[#e1e4e8] font-['Source Sans Pro'] border-r-[1px] border-[var(--explorer-border)]">
@@ -30,24 +106,8 @@ const Explorer = () => {
           />
           User
         </label>
-        <div
-          className={`px-2 py-1 cursor-pointer ${
-            portfolioOpen ? "block" : "hidden"
-          }`}
-        >
-          {/* {explorerItems.map((item) => (
-            <Link href={item.path} key={item.name}>
-              <div className="px-4 py-1 flex items-center text-[0.875rem] hover:bg-[var(--explorer-hover-bg)]">
-                <Image
-                  src={`${item.icon}`}
-                  alt={item.name}
-                  height={18}
-                  width={18}
-                />
-                <p className="ml-1">{item.name}</p>
-              </div>
-            </Link>
-          ))} */}
+        <div className={`px-2 py-1 ${portfolioOpen ? "block" : "hidden"}`}>
+          {renderTree(fileTree)}
         </div>
       </div>
     </div>
