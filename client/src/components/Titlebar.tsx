@@ -1,30 +1,31 @@
-" use client";
 import Image from "next/image";
-
+import vscode_icon from "../public/vscode_icon.svg";
 const Titlebar = () => {
   return (
-    <section className="bg-gray-800 h-8 px-2 flex items-center justify-between text-white font-sans text-sm border-b border-gray-900">
+    <section className="bg-gray-900 h-8 px-2 flex items-center justify-center text-white text-sm border-b border-gray-800 font-sans">
       <Image
-        src="/vscode_icon.svg"
+        src={vscode_icon.src}
         alt="VSCode Icon"
         height={15}
         width={15}
-        className="w-4 h-4"
+        className="mr-2"
       />
-      <div className="flex flex-1 ml-2 space-x-2">
-        <p className="cursor-pointer">File</p>
-        <p className="cursor-pointer">Edit</p>
-        <p className="cursor-pointer">View</p>
-        <p className="cursor-pointer">Go</p>
-        <p className="cursor-pointer">Run</p>
-        <p className="cursor-pointer">Terminal</p>
-        <p className="cursor-pointer">Help</p>
+      <div className="flex  items-center ml-2">
+        <p className="px-2 cursor-pointer">File</p>
+        <p className="px-2 cursor-pointer">Edit</p>
+        <p className="px-2 cursor-pointer">View</p>
+        <p className="px-2 cursor-pointer">Go</p>
+        <p className="px-2 cursor-pointer">Run</p>
+        <p className="px-2 cursor-pointer">Terminal</p>
+        <p className="px-2 cursor-pointer">Help</p>
       </div>
-      <p className="flex-1 text-center">Nitin Ranganath - Visual Studio Code</p>
-      <div className="flex space-x-2">
-        <span className="w-3 h-3 rounded-full bg-yellow-300 cursor-pointer"></span>
-        <span className="w-3 h-3 rounded-full bg-green-400 cursor-pointer"></span>
-        <span className="w-3 h-3 rounded-full bg-red-500 cursor-pointer"></span>
+      <p className="flex-1  items-center text-center">
+        Unknown Workspace - Visual Studio Code
+      </p>
+      <div className="flex items-center ml-auto">
+        <span className="block h-3.5 w-3.5 rounded-full bg-yellow-400 mx-1 cursor-pointer"></span>
+        <span className="block h-3.5 w-3.5 rounded-full bg-green-400 mx-1 cursor-pointer"></span>
+        <span className="block h-3.5 w-3.5 rounded-full bg-red-500 mx-1 cursor-pointer"></span>
       </div>
     </section>
   );

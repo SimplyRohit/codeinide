@@ -1,42 +1,41 @@
-"use client";
-import {
-  AlertCircle,
-  AlertTriangle,
-  Bell,
-  Check,
-  GitBranch,
-} from "lucide-react";
+import ErrorIcon from "../icons/ErrorIcon";
+import WarningIcon from "../icons/WarningIcon";
+import BellIcon from "../icons/BellIcon";
+import CheckIcon from "../icons/CheckIcon";
+import NextjsIcon from "../icons/NextjsIcon";
+import SourceControlIcon from "../icons/SourceControlIcon";
 
 const Bottombar = () => {
   return (
-    <footer className="bg-bottombar-bg h-6 border-t border-bottombar-border text-gray-200 px-2 flex items-center justify-between text-xs">
+    <footer className="bg-[var(--bottombar-bg)] h-[25px] border-t-[1px] border-[var(--bottombar-border)] text-[#e1e4e8] px-2 flex items-center justify-between text-[0.8rem]">
       <div className="flex items-center">
         <a
-          href="https://github.com/itsnitinr/vscode-portfolio"
+          href="https://github.com/WasATrueWarriror/codeinide"
           target="_blank"
           rel="noreferrer noopener"
-          className="flex items-center text-white hover:bg-bottombar-hover-bg px-1 py-0.5 rounded"
+          className="flex items-center mr-2 h-[24px] px-1 cursor-pointer font-[Source Sans Pro] hover:bg-[var(--bottombar-hover-bg)]"
         >
-          <GitBranch className="mr-1 h-4 w-4" />
+          <SourceControlIcon className="mr-1" />
           <p>main</p>
         </a>
-        <div className="flex items-center ml-2">
-          <AlertCircle className="h-4 w-4 text-red-400 mr-1" />
+        <div className="flex items-center mr-2 h-[24px] px-1 cursor-pointer font-[Source Sans Pro] hover:bg-[var(--bottombar-hover-bg)]">
+          <ErrorIcon className="mr-1" />
           <p className="mr-2">0</p>
-          <AlertTriangle className="h-4 w-4 text-yellow-400 mr-1" />
+          <WarningIcon className="mr-1" />
           <p>0</p>
         </div>
       </div>
       <div className="flex items-center">
-        <div className="flex items-center mr-2">
+        <div className="flex items-center mr-2 h-[24px] px-1 cursor-pointer font-[Source Sans Pro] hover:bg-[var(--bottombar-hover-bg)]">
+          <NextjsIcon className="mr-1" />
           <p>Powered by Next.js</p>
         </div>
-        <div className="flex items-center mr-2">
-          <Check className="h-4 w-4 mr-1" />
+        <div className="flex items-center mr-2 h-[24px] px-1 cursor-pointer font-[Source Sans Pro] hover:bg-[var(--bottombar-hover-bg)]">
+          <CheckIcon className="mr-1" />
           <p>Prettier</p>
         </div>
-        <div className="flex items-center">
-          <Bell className="h-4 w-4" />
+        <div className="flex items-center mr-2 h-[24px] px-1 cursor-pointer hover:bg-[var(--bottombar-hover-bg)]">
+          <BellIcon />
         </div>
       </div>
     </footer>

@@ -12,8 +12,11 @@ const Xterm = () => {
     if (terminalRef.current) {
       const term = new Terminal({
         cursorBlink: true,
-
-        rows: 9,
+        rows: 10,
+        theme: {
+          background: "#1F2428",
+          cursor: "#f1fa8c",
+        },
       });
 
       term.open(terminalRef.current);
@@ -45,7 +48,7 @@ const Xterm = () => {
     }
   }, []);
 
-  return <div ref={terminalRef}></div>;
+  return <div className=" absolute bottom-6 w-full" ref={terminalRef}></div>;
 };
 
 export default Xterm;

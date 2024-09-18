@@ -1,68 +1,53 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
-import { ChevronRight, File, FileText, FileCode, FileJson } from "lucide-react";
-
-const explorerItems = [
-  {
-    name: "home.jsx",
-    path: "/",
-    icon: FileCode, // React icon equivalent
-  },
-
-  {
-    name: "contact.css",
-    path: "/contact",
-    icon: File, // CSS icon (generic file icon for CSS)
-  },
-  {
-    name: "projects.js",
-    path: "/projects",
-    icon: FileCode, // JavaScript icon equivalent
-  },
-  {
-    name: "articles.json",
-    path: "/articles",
-    icon: FileJson, // JSON icon
-  },
-];
+import ChevronRight from "../icons/ChevronRight";
 
 const Explorer = () => {
   const [portfolioOpen, setPortfolioOpen] = useState(true);
 
   return (
-    <div className="bg-explorer-bg w-[18vw] text-gray-200 font-sans border-r border-explorer-border">
-      <p className="p-2 font-light uppercase text-xs tracking-wider mb-3">
+    <div className="bg-[var(--explorer-bg)] w-[18vw] text-[#e1e4e8] font-['Source Sans Pro'] border-r-[1px] border-[var(--explorer-border)]">
+      <p className="p-2 font-light uppercase text-[0.9rem] tracking-widest mb-3">
         Explorer
       </p>
       <div>
         <input
           type="checkbox"
-          className="absolute opacity-0 z-[-1]"
+          className="absolute opacity-0 -z-1"
           id="portfolio-checkbox"
           checked={portfolioOpen}
           onChange={() => setPortfolioOpen(!portfolioOpen)}
         />
         <label
           htmlFor="portfolio-checkbox"
-          className="text-xs font-bold uppercase flex items-center cursor-pointer px-2"
+          className="uppercase font-bold text-[0.8rem] tracking-widest flex items-center cursor-pointer px-2"
         >
           <ChevronRight
-            className={`transition-transform duration-200 ${
-              portfolioOpen ? "rotate-90" : ""
-            }`}
+            className="transition-transform duration-200"
+            style={portfolioOpen ? { transform: "rotate(90deg)" } : {}}
           />
-          Portfolio
+          User
         </label>
-        <div className={`py-2 ${portfolioOpen ? "block" : "hidden"}`}>
-          {explorerItems.map((item) => (
+        <div
+          className={`px-2 py-1 cursor-pointer ${
+            portfolioOpen ? "block" : "hidden"
+          }`}
+        >
+          {/* {explorerItems.map((item) => (
             <Link href={item.path} key={item.name}>
-              <h1 className="flex items-center p-1 text-sm hover:bg-explorer-hover-bg">
-                <item.icon className="h-4 w-4" />
-                <p className="ml-2">{item.name}</p>
-              </h1>
+              <div className="px-4 py-1 flex items-center text-[0.875rem] hover:bg-[var(--explorer-hover-bg)]">
+                <Image
+                  src={`${item.icon}`}
+                  alt={item.name}
+                  height={18}
+                  width={18}
+                />
+                <p className="ml-1">{item.name}</p>
+              </div>
             </Link>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
