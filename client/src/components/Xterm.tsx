@@ -48,7 +48,9 @@ const Xterm = () => {
     }
   }, []);
 
-  return <div className=" absolute bottom-6 w-full" ref={terminalRef}></div>;
+  return (
+    <div className=" absolute bottom-[1.4rem] w-full" ref={terminalRef}></div>
+  );
 };
 
 export default Xterm;
