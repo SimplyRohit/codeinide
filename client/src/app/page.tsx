@@ -1,4 +1,3 @@
-// HomePage.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import MonacoEditor from "../components/Editor";
@@ -81,7 +80,7 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-row w-full h-full">
-      <div className="flex ">
+      <div className="flex border-r-1  border-gray-600">
         <Explorer onFileSelect={handleFileSelect} />
       </div>
       <div className="flex flex-col w-full h-[calc(100vh-255px)]">
@@ -91,12 +90,16 @@ const HomePage = () => {
           onTabClick={handleTabClick}
           onTabClose={handleTabClose}
         />
-        <MonacoEditor
-          value={fileContent}
-          language="javascript"
-          onChange={(newValue: any) => setFileContent(newValue)}
-        />
-        <Xterm />
+        <div className="flex-1 min-h-[calc(100vh-275px)] ">
+          <MonacoEditor
+            value={fileContent}
+            language="javascript"
+            onChange={(newValue: any) => setFileContent(newValue)}
+          />
+        </div>
+        <div className="flex w-full h-full ">
+          <Xterm />
+        </div>
       </div>
     </div>
   );
