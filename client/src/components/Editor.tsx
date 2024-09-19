@@ -1,4 +1,4 @@
-// components/MonacoEditor.tsx
+// MonacoEditor.tsx
 "use client";
 import React from "react";
 import { useMonaco, Editor } from "@monaco-editor/react";
@@ -12,9 +12,8 @@ const MonacoEditor: React.FC<any> = ({
 
   return (
     <Editor
-      // height="100vh"
-      defaultLanguage={language}
-      defaultValue={value || "// Your code here..."}
+      language={language}
+      value={value}
       onChange={(newValue: any, event: any) => {
         if (onChange) {
           onChange(newValue);

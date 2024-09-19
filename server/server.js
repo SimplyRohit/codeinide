@@ -53,6 +53,34 @@ app.get("/files", async (req, res) => {
     res.status(500).send("Error fetching file tree");
   }
 });
+app.get("/files/:filePath", async (req, res) => {
+  try {
+    const { filePath } = req.params;
+    const fileContent = await fs.readFile(
+      path.join(__dirname, "user", filePath),
+      "utf-8"
+    );
+    res.json(fileContent);
+  } catch (error) {
+    console.error("Error fetching file content:", error);
+    res.status(500).send("Error fetching file content");
+  }
+});
+app.post("/files/:filePath", async (req, res) => {
+  try {
+    const { filePath } = req.params;
+    const { content } = req.body;
+    await fs.writeFile(
+      path.join(__dirname, "user", filePath),
+      content,
+      "utf-8"
+    );
+    res.status(200).send("File saved successfully");
+  } catch (error) {
+    console.error("Error saving file content:", error);
+    res.status(500).send("Error saving file content");
+  }
+});
 
 server.listen(9000, () => {
   console.log("Server started on port 9000");

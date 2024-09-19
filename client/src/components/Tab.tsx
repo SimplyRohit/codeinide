@@ -1,19 +1,17 @@
+// Tab.tsx
 "use client";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-const Tab = ({ icon, filename, path }: any) => {
-  const pathname = usePathname();
+import { X } from "lucide-react";
+
+const Tab = ({ tab, isActive, onClick, onClose }: any) => {
   return (
     <div
-      className={`flex items-center cursor-pointer p-2.5 bg-gray-800 border border-gray-700 text-gray-300 font-sans text-sm ${
-        pathname === path
-          ? "border-t border-t-blue-500 bg-gray-700"
-          : "border-b"
-      }`}
+      className={`flex justify-center cursor-pointer items-center w-[5rem] ${
+        isActive ? "bg-gray-700" : "bg-gray-800"
+      } border border-gray-700 text-gray-300`}
+      onClick={onClick}
     >
-      <Image src={icon} alt={filename} height={18} width={18} />
-      <p className="ml-1">{filename}</p>
+      <h1 className="font-bold text-[0.8rem] px-1 ">{tab.name}</h1>
+      <X onClick={onClose} className="w-3 h-3 " />
     </div>
   );
 };

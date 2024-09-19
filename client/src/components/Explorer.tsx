@@ -1,17 +1,17 @@
+// Explorer.tsx
 "use client";
 import { useState, useEffect } from "react";
 import { ChevronRight, Folder, FileText } from "lucide-react";
 import axios from "axios";
-
 import socket from "../../socket";
-const Explorer = () => {
+
+const Explorer = ({ onFileSelect }: any) => {
   const [portfolioOpen, setPortfolioOpen] = useState(true);
   const [fileTree, setFileTree] = useState({});
   const [openDirectories, setOpenDirectories] = useState(new Map());
 
   useEffect(() => {
     socket.on("file-change", fetchFileTree);
-
     return () => {
       socket.off("file-change", fetchFileTree);
     };
@@ -39,6 +39,10 @@ const Explorer = () => {
     });
   };
 
+  const handleFileClick = (path: string) => {
+    onFileSelect(path);
+  };
+
   const renderTree = (node: any, path = "") => {
     return (
       <div key={path}>
@@ -54,7 +58,11 @@ const Explorer = () => {
             >
               <div
                 className="flex items-center cursor-pointer"
-                onClick={() => isDirectory && toggleDirectory(path + key)}
+                onClick={() =>
+                  isDirectory
+                    ? toggleDirectory(path + key)
+                    : handleFileClick(path + key)
+                }
               >
                 {isDirectory ? (
                   <Folder
