@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-const Tab = ({ icon, filename, path }) => {
+const Tab = ({ icon, filename, path }: any) => {
   const pathname = usePathname();
   return (
     <div

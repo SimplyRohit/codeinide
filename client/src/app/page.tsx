@@ -8,7 +8,7 @@ const HomePage = () => {
     '// Your code here\nconsole.log("Hello, Monaco!");'
   );
 
-  const handleCodeChange = (newValue) => {
+  const handleCodeChange = (newValue: any) => {
     setCode(newValue);
   };
 
