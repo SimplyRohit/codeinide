@@ -46,7 +46,7 @@ const sidebarBottomItems = [
 const Sidebar = () => {
   const pathname = usePathname();
   return (
-    <aside className="bg-[var(--sidebar-bg)] flex flex-col justify-between w-[4.5vw] min-w-[40px] h-[calc(100vh-55px)]">
+    <aside className="bg-[var(--sidebar-bg)] flex flex-col justify-between w-[2.8vw] h-[calc(100vh-55px)]">
       {/* Top icons */}
       <div>
         {sidebarTopItems.map(({ Icon, path }) => (
@@ -62,7 +62,7 @@ const Sidebar = () => {
                     ? "rgb(225, 228, 232)"
                     : "rgb(106, 115, 125)"
                 }
-                className="h-[48px] w-[48px] p-[0.65rem] mx-auto"
+                className="h-[42px] w-[42px] p-[0.65rem] mx-auto"
               />
             </div>
           </Link>
@@ -84,7 +84,7 @@ const Sidebar = () => {
                     ? "rgb(225, 228, 232)"
                     : "rgb(106, 115, 125)"
                 }
-                className="h-[48px] w-[48px] p-[0.65rem] mx-auto"
+                className="h-[42px] w-[42px] p-[0.65rem] mx-auto"
               />
             </div>
           </Link>

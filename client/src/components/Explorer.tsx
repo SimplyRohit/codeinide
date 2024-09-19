@@ -30,7 +30,7 @@ const Explorer = () => {
     }
   };
 
-  const toggleDirectory = (path) => {
+  const toggleDirectory = (path: any) => {
     setOpenDirectories((prev) => {
       const newMap = new Map(prev);
       const currentState = newMap.get(path) || false;
@@ -39,7 +39,7 @@ const Explorer = () => {
     });
   };
 
-  const renderTree = (node, path = "") => {
+  const renderTree = (node: any, path = "") => {
     return (
       <div key={path}>
         {Object.entries(node).map(([key, value]) => {
@@ -84,7 +84,7 @@ const Explorer = () => {
   };
 
   return (
-    <div className="bg-[var(--explorer-bg)] w-[18vw] text-[#e1e4e8] font-['Source Sans Pro'] border-r-[1px] border-[var(--explorer-border)]">
+    <div className="bg-[var(--explorer-bg)] w-[10vw] text-[#e1e4e8] font-['Source Sans Pro'] border-r-[1px] border-[var(--explorer-border)]">
       <p className="p-2 font-light uppercase text-[0.9rem] tracking-widest mb-3">
         Explorer
       </p>
