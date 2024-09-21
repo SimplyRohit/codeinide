@@ -7,7 +7,7 @@ import SourceControlIcon from "../icons/SourceControlIcon";
 
 const Bottombar = () => {
   return (
-    <footer className="bg-[var(--bottombar-bg)] h-[25px] border-t-[1px] border-[var(--bottombar-border)] text-[#e1e4e8] px-2 flex items-center justify-between text-[0.8rem]">
+    <footer className="bg-[#181818] h-[25px] border-t-[1px] border-[#2B2B2B] text-[#e1e4e8] px-2 flex w-full items-center justify-between text-[0.8rem]">
       <div className="flex items-center">
         <a
           href="https://github.com/WasATrueWarriror/codeinide"

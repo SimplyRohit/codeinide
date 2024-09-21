@@ -4,13 +4,17 @@ import MonacoEditor from "../components/Editor";
 import Tabsbar from "../components/Tabsbar";
 import Explorer from "../components/Explorer";
 import Xterm from "../components/Xterm";
+import Titlebar from "../components/Titlebar";
+import Sidebar from "../components/Sidebar";
+import Bottombar from "../components/Bottombar";
 import axios from "axios";
 
 const HomePage = () => {
   const [tabs, setTabs] = useState<any[]>([]);
   const [activeFilePath, setActiveFilePath] = useState("");
   const [fileContent, setFileContent] = useState("");
-
+  const [isTerminalOpen, setIsTerminalOpen] = useState(true);
+  const [isExplorerOpen, setIsExplorerOpen] = useState(true);
   useEffect(() => {
     if (activeFilePath) {
       fetchFileContent(activeFilePath);
@@ -79,30 +83,49 @@ const HomePage = () => {
   }, [fileContent, activeFilePath]);
 
   return (
-    <div className="flex flex-row w-full h-full">
-      <div className="flex border-r-1  border-gray-600">
-        <Explorer onFileSelect={handleFileSelect} />
-      </div>
-      <div className="flex flex-col w-full h-[calc(100vh-255px)]">
-        <Tabsbar
+    <div className="flex w-screen h-screen flex-col ">
+      <div className="flex w-full h-full flex-row">
+        <div className="flex ">
+          <Sidebar />
+        </div>
+        <div className="flex  w-full h-full flex-row">
+          <div className="flex  h-full">
+            {isExplorerOpen &&
+            <Explorer onFileSelect={handleFileSelect} /> }
+          </div>
+          <div className="flex w-full h-full flex-col">
+            <div className="flex w-full ">
+            <Tabsbar
           tabs={tabs}
           activeTab={activeFilePath}
           onTabClick={handleTabClick}
           onTabClose={handleTabClose}
         />
-        <div className="flex-1 min-h-[calc(100vh-275px)] ">
-          <MonacoEditor
+            </div>
+                <span className="text-white ml-2 text-[15px] pb-1">User > {activeFilePath.split('/').join(' > ')}</span>
+          
+              <div className="flex w-[calc(100%-2vw)] h-[calc(100%-0.2vw)]  ">
+              <MonacoEditor
             value={fileContent}
             language="javascript"
             onChange={(newValue: any) => setFileContent(newValue)}
           />
-        </div>
-        <div className="flex w-full h-full ">
-          <Xterm />
+               
+              </div>
+              {isTerminalOpen &&
+                <Xterm  />}
+      
+          </div> 
         </div>
       </div>
+      <div className="flex">
+        <Bottombar />
+      </div>
     </div>
+
   );
 };
 
 export default HomePage;
+
+

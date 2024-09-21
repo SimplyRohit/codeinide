@@ -3,7 +3,7 @@ import Tab from "./Tab";
 
 const Tabsbar = ({ tabs, activeTab, onTabClick, onTabClose }: any) => {
   return (
-    <div className="flex min-h-[2.5rem] bg-[#1F2428]">
+    <div className="flex h-[2rem] w-full min-h-[2rem] border-[#2B2B2B] border-b-2 bg-[#181818]">
       {tabs.map((tab: any) => (
         <Tab
           key={tab.path}

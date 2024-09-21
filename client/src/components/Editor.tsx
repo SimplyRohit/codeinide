@@ -1,6 +1,5 @@
-// MonacoEditor.tsx
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useMonaco, Editor } from "@monaco-editor/react";
 
 const MonacoEditor: React.FC<any> = ({
@@ -9,6 +8,21 @@ const MonacoEditor: React.FC<any> = ({
   onChange,
 }) => {
   const monaco = useMonaco();
+
+
+  useEffect(() => {
+    if (monaco) {
+      monaco.editor.defineTheme("custom-dark", {
+        base: "vs-dark", 
+        inherit: true, 
+        rules: [],
+        colors: {
+          "editor.background": "#1F1F1F", 
+        },
+      });
+      monaco.editor.setTheme("custom-dark");
+    }
+  }, [monaco]);
 
   return (
     <Editor
@@ -19,7 +33,7 @@ const MonacoEditor: React.FC<any> = ({
           onChange(newValue);
         }
       }}
-      theme="vs-dark"
+      theme="custom-dark" 
     />
   );
 };

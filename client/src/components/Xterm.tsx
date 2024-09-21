@@ -13,8 +13,9 @@ const Xterm = () => {
       const term = new Terminal({
         cursorBlink: true,
         rows: 10,
+        cols: 80,
         theme: {
-          background: "#1F2428",
+          background: "#181818",
           cursor: "#f1fa8c",
         },
       });
@@ -49,7 +50,11 @@ const Xterm = () => {
   }, []);
 
   return (
-    <div className=" absolute bottom-[1.4rem] w-full" ref={terminalRef}></div>
+    <div
+      // border-[#2B2B2B] border-t-2 border-b-2
+      className=" flex w-[calc(100%-0.1vw)]  bg-[#181818] p-2"
+      ref={terminalRef}
+    ></div>
   );
 };
 

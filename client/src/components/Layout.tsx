@@ -7,7 +7,7 @@ const Layout = ({ children }: any) => {
       <Titlebar />
       <div className="flex  bg-[var(--main-bg)]">
         <Sidebar />
-        <div className="w-full">{children}</div>
+        <div className="flex-1">{children}</div>
       </div>
 
       <Bottombar />

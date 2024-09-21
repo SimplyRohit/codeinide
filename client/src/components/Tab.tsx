@@ -5,9 +5,9 @@ import { X } from "lucide-react";
 const Tab = ({ tab, isActive, onClick, onClose }: any) => {
   return (
     <div
-      className={`flex justify-center cursor-pointer items-center w-[5rem] ${
-        isActive ? "bg-gray-700" : "bg-gray-800"
-      } border border-gray-700 text-gray-300`}
+      className={`flex justify-center  cursor-pointer items-center w-[5rem] ${
+        isActive ? "bg-[#1F1F1F]" : "bg-[#181818]"
+      }  text-gray-300`}
       onClick={onClick}
     >
       <h1 className="font-bold text-[0.8rem] px-1 ">{tab.name}</h1>
