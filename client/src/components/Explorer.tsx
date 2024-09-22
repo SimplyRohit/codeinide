@@ -1,12 +1,22 @@
 // Explorer.tsx
 "use client";
 import { useState, useEffect } from "react";
-import { ChevronRight, Folder, FileText } from "lucide-react";
+import {
+  ChevronRight,
+  Folder,
+  FileText,
+  FilePlus2,
+  FolderPlus,
+  FolderSync,
+  FolderOpen,
+  FolderClosed,
+  File,
+} from "lucide-react";
 import axios from "axios";
 import socket from "../../socket";
 
-const Explorer = ({ onFileSelect }: any) => {
-  const [portfolioOpen, setPortfolioOpen] = useState(true);
+const Explorer = ({ onFileSelect }) => {
+  const [userOpen, setUserOpen] = useState(true);
   const [fileTree, setFileTree] = useState({});
   const [openDirectories, setOpenDirectories] = useState(new Map());
 
@@ -30,7 +40,7 @@ const Explorer = ({ onFileSelect }: any) => {
     }
   };
 
-  const toggleDirectory = (path: any) => {
+  const toggleDirectory = (path) => {
     setOpenDirectories((prev) => {
       const newMap = new Map(prev);
       const currentState = newMap.get(path) || false;
@@ -43,7 +53,7 @@ const Explorer = ({ onFileSelect }: any) => {
     onFileSelect(path);
   };
 
-  const renderTree = (node: any, path = "") => {
+  const renderTree = (node, path = "") => {
     return (
       <div key={path}>
         {Object.entries(node).map(([key, value]) => {
@@ -65,16 +75,20 @@ const Explorer = ({ onFileSelect }: any) => {
                 }
               >
                 {isDirectory ? (
-                  <Folder
-                    className={`mr-2 w-4  transition-transform duration-200 ${
-                      isOpen ? "rotate-90" : ""
-                    }`}
-                  />
+                  isOpen ? (
+                    <FolderOpen
+                      className={`mr-2 w-4  transition-transform duration-200 `}
+                    />
+                  ) : (
+                    <FolderClosed
+                      className={`mr-2 w-4  transition-transform duration-200 `}
+                    />
+                  )
                 ) : (
-                  <FileText className="mr-2 w-3" />
+                  <File className="mr-2 w-4" />
                 )}
                 {key}
-                {(isDirectory as any) && (
+                {isDirectory && (
                   <ChevronRight
                     className={`transition-transform duration-200 w-3 ${
                       isOpen ? "rotate-90" : ""
@@ -97,24 +111,25 @@ const Explorer = ({ onFileSelect }: any) => {
         Explorer
       </p>
       <div>
-        <input
-          type="checkbox"
-          className="absolute opacity-0 -z-1"
-          id="portfolio-checkbox"
-          checked={portfolioOpen}
-          onChange={() => setPortfolioOpen(!portfolioOpen)}
-        />
-        <label
-          htmlFor="portfolio-checkbox"
-          className="uppercase font-bold text-[0.8rem] tracking-widest flex items-center cursor-pointer px-2"
-        >
-          <ChevronRight
-            className="transition-transform duration-200"
-            style={portfolioOpen ? { transform: "rotate(90deg)" } : {}}
-          />
-          User
-        </label>
-        <div className={`px-2 py-1 ${portfolioOpen ? "block" : "hidden"}`}>
+        <div className="flex items-center   flex-row">
+          <h1
+            className="uppercase font-bold text-[0.8rem] tracking-widest flex items-center cursor-pointer px-2"
+            onClick={() => setUserOpen(!userOpen)}
+          >
+            <ChevronRight
+              className={`transition-transform duration-200 ${
+                userOpen ? "rotate-90" : ""
+              }`}
+            />
+            User
+          </h1>
+          {/* <div className="flex  items-center justify-end mr-2 w-full gap-2">
+            <FilePlus2 className="w-4 " />
+            <FolderPlus className="w-4 " />
+            <FolderSync className="w-4 " />
+          </div> */}
+        </div>
+        <div className={`px-2 py-1 ${userOpen ? "block" : "hidden"}`}>
           {renderTree(fileTree)}
         </div>
       </div>
