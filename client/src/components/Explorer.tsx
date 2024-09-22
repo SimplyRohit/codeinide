@@ -92,7 +92,7 @@ const Explorer = ({ onFileSelect }: any) => {
   };
 
   return (
-    <div className="bg-[#181818] w-[10vw] text-[#e1e4e8] font-['Source Sans Pro'] border-x-[1px] border-[#2B2B2B]">
+    <div className="bg-[#181818] w-full text-[#e1e4e8] font-['Source Sans Pro'] border-x-[1px] border-[#2B2B2B]">
       <p className="p-2 font-light uppercase text-[0.9rem] tracking-widest mb-3">
         Explorer
       </p>

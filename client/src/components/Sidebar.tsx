@@ -34,12 +34,25 @@ const sidebarBottomItems = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({
+  isExplorerOpen,
+  setIsExplorerOpen,
+  isXtermOpen,
+  setIsXtermOpen,
+}) => {
   return (
-    <div className="bg-[#181818] flex flex-col justify-between min-w-[2.8vw] h-full">
+    <div className="bg-[#181818] flex flex-col border-r-[1px] border-[#3C3C3C] justify-between min-w-[2.8vw] h-full">
       <div>
-        {sidebarTopItems.map(({ Icon }) => (
+        {sidebarTopItems.map(({ Icon, index }) => (
           <div
+            key={index}
+            onClick={() => {
+              if (Icon === FilesIcon) {
+                setIsExplorerOpen(!isExplorerOpen ? true : false);
+              } else if (Icon === CodeIcon) {
+                setIsXtermOpen(!isXtermOpen ? true : false);
+              }
+            }}
             className={`cursor-pointer w-full hover:bg-[var(--sidebar-hover-bg)]`}
           >
             <Icon
@@ -51,8 +64,9 @@ const Sidebar = () => {
       </div>
 
       <div>
-        {sidebarBottomItems.map(({ Icon }) => (
+        {sidebarBottomItems.map(({ Icon, index }) => (
           <div
+            key={index}
             className={`cursor-pointer w-full hover:bg-[var(--sidebar-hover-bg)]
               `}
           >

@@ -8,13 +8,15 @@ import Titlebar from "../components/Titlebar";
 import Sidebar from "../components/Sidebar";
 import Bottombar from "../components/Bottombar";
 import axios from "axios";
+import { Allotment } from "allotment";
+import "allotment/dist/style.css";
 
 const HomePage = () => {
-  const [tabs, setTabs] = useState<any[]>([]);
+  const [tabs, setTabs] = useState([]);
   const [activeFilePath, setActiveFilePath] = useState("");
   const [fileContent, setFileContent] = useState("");
-  const [isTerminalOpen, setIsTerminalOpen] = useState(true);
   const [isExplorerOpen, setIsExplorerOpen] = useState(true);
+  const [isXtermOpen, setIsXtermOpen] = useState(true);
   useEffect(() => {
     if (activeFilePath) {
       fetchFileContent(activeFilePath);
@@ -70,7 +72,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    const handleKeyDown = (event: any) => {
+    const handleKeyDown = (event) => {
       if (event.ctrlKey && event.key === "s") {
         event.preventDefault();
         handleSave();
@@ -83,49 +85,61 @@ const HomePage = () => {
   }, [fileContent, activeFilePath]);
 
   return (
-    <div className="flex w-screen h-screen flex-col ">
+    <div className="flex w-screen h-screen overflow-hidden flex-col ">
+      <Titlebar />
       <div className="flex w-full h-full flex-row">
         <div className="flex ">
-          <Sidebar />
+          <Sidebar
+            isExplorerOpen={isExplorerOpen}
+            setIsExplorerOpen={setIsExplorerOpen}
+            isXtermOpen={isXtermOpen}
+            setIsXtermOpen={setIsXtermOpen}
+          />
         </div>
         <div className="flex  w-full h-full flex-row">
-          <div className="flex  h-full">
-            {isExplorerOpen &&
-            <Explorer onFileSelect={handleFileSelect} /> }
-          </div>
-          <div className="flex w-full h-full flex-col">
-            <div className="flex w-full ">
-            <Tabsbar
-          tabs={tabs}
-          activeTab={activeFilePath}
-          onTabClick={handleTabClick}
-          onTabClose={handleTabClose}
-        />
-            </div>
-                <span className="text-white ml-2 text-[15px] pb-1">User > {activeFilePath.split('/').join(' > ')}</span>
-          
-              <div className="flex w-[calc(100%-2vw)] h-[calc(100%-0.2vw)]  ">
-              <MonacoEditor
-            value={fileContent}
-            language="javascript"
-            onChange={(newValue: any) => setFileContent(newValue)}
-          />
-               
+          <Allotment>
+            {isExplorerOpen && (
+              <Allotment.Pane className="flex   h-full " preferredSize="20%">
+                <Explorer onFileSelect={handleFileSelect} />
+              </Allotment.Pane>
+            )}
+            <div className="flex w-full h-full flex-col">
+              <div className="flex w-full ">
+                <Tabsbar
+                  tabs={tabs}
+                  activeTab={activeFilePath}
+                  onTabClick={handleTabClick}
+                  onTabClose={handleTabClose}
+                />
               </div>
-              {isTerminalOpen &&
-                <Xterm  />}
-      
-          </div> 
+              {activeFilePath && (
+                <span className="text-white ml-2 text-[15px] pb-1">
+                  User {">"} {activeFilePath.split("/").join(" > ")}
+                </span>
+              )}
+              <Allotment vertical>
+                <div className="flex h-full">
+                  <MonacoEditor
+                    value={fileContent}
+                    language="javascript"
+                    onChange={(newValue) => setFileContent(newValue)}
+                  />
+                </div>
+                {isXtermOpen && (
+                  <Allotment.Pane className="flex h-full" preferredSize="20%">
+                    <Xterm />
+                  </Allotment.Pane>
+                )}
+              </Allotment>
+            </div>
+          </Allotment>
         </div>
       </div>
       <div className="flex">
         <Bottombar />
       </div>
     </div>
-
   );
 };
 
 export default HomePage;
-
-

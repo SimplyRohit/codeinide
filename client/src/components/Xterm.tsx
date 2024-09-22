@@ -51,8 +51,9 @@ const Xterm = () => {
 
   return (
     <div
+      // if explored is open w-[87%] else w-[97%]
       // border-[#2B2B2B] border-t-2 border-b-2
-      className=" flex w-[calc(100%-0.1vw)]  bg-[#181818] p-2"
+      className=" flex-1 p-2 bg-[#181818] "
       ref={terminalRef}
     ></div>
   );

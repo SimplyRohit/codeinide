@@ -10,4 +10,7 @@
 @import "~react-mosaic-component/react-mosaic-component.css";
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap");
 
- 
+.xterm,
+.xterm-viewport {
+  overflow-y: auto !important;
+}
