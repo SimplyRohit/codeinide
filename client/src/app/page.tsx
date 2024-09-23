@@ -85,7 +85,7 @@ const HomePage = () => {
   }, [fileContent, activeFilePath]);
 
   return (
-    <div className="flex w-screen h-screen overflow-hidden flex-col ">
+    <div className="flex w-screen h-screen  flex-col ">
       <Titlebar />
       <div className="flex w-full h-full flex-row">
         <div className="flex ">
@@ -99,7 +99,10 @@ const HomePage = () => {
         <div className="flex  w-full h-full flex-row">
           <Allotment>
             {isExplorerOpen && (
-              <Allotment.Pane className="flex   h-full " preferredSize="20%">
+              <Allotment.Pane
+                className="flex w-[20%]  h-full "
+                preferredSize="20%"
+              >
                 <Explorer onFileSelect={handleFileSelect} />
               </Allotment.Pane>
             )}

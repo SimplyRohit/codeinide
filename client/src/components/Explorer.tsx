@@ -1,17 +1,7 @@
 // Explorer.tsx
 "use client";
 import { useState, useEffect } from "react";
-import {
-  ChevronRight,
-  Folder,
-  FileText,
-  FilePlus2,
-  FolderPlus,
-  FolderSync,
-  FolderOpen,
-  FolderClosed,
-  File,
-} from "lucide-react";
+import { ChevronRight, FolderOpen, FolderClosed, File } from "lucide-react";
 import axios from "axios";
 import socket from "../../socket";
 
