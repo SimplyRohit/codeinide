@@ -10,13 +10,14 @@ import Bottombar from "../components/Bottombar";
 import axios from "axios";
 import { Allotment } from "allotment";
 import "allotment/dist/style.css";
-
+import Auth from "../components/Auth";
 const HomePage = () => {
   const [tabs, setTabs] = useState([]);
   const [activeFilePath, setActiveFilePath] = useState("");
   const [fileContent, setFileContent] = useState("");
   const [isExplorerOpen, setIsExplorerOpen] = useState(true);
   const [isXtermOpen, setIsXtermOpen] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
   useEffect(() => {
     if (activeFilePath) {
       fetchFileContent(activeFilePath);
@@ -141,6 +142,11 @@ const HomePage = () => {
       <div className="flex">
         <Bottombar />
       </div>
+      {isLogin && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <Auth />
+        </div>
+      )}
     </div>
   );
 };
